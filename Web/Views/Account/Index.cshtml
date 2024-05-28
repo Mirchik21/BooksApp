@@ -1,0 +1,111 @@
+﻿@model GetAccountsQuery
+
+@{
+    ViewData["Title"] = "Список пользователей";
+
+    var users = (IPager<AccountDto>)ViewData["Accounts"];
+
+    int i = users.StartItemIndex;
+}
+
+<div class="main-content-wrap sidenav-open d-flex flex-column">
+    <div class="main-content">
+        <div class="breadcrumb">
+            <ul>
+                <li><a asp-controller="Account" asp-action="Index">Главная</a></li>
+                <li>@ViewData["Title"]</li>
+            </ul>
+        </div>
+        <div class="separator-breadcrumb border-top"></div>
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="card text-left">
+                    <div class="card-body">
+                        <div class="card-title mb-3">Поиск</div>
+                        <form asp-action="Index" method="get" autocomplete="off">
+                            <div class="row">
+                                <div class="col-md-3 form-group">
+                                    <label>Почта</label>
+                                    <input class="form-control" asp-for="@Model.Email">
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    <label>Имя</label>
+                                    <input class="form-control" asp-for="@Model.Name">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <button class="btn btn-primary btn-block">
+                                        <i class="i-Magnifi-Glass1 mr-1"></i>Найти
+                                    </button>
+                                </div>
+                                <div class="col-md-1">
+                                    <a href="@Url.Action("Index")" class="btn btn-secondary btn-block" type="button">Сбросить</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-md-12 mx-auto mb-4">
+                <div class="card text-left">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <h4 class="card-title mb-3">@ViewData["Title"] (Кол-во пользователей: @users.TotalItemCount)</h4>
+                            <a href="@Url.ActionLink("Create", "Account")" class="btn btn-lg btn-primary" type="button">
+                                <i class="i-Add-User mr-2"></i>Добавить
+                            </a>
+                            @if (users.Any())
+                            {
+                                <table class="footable table toggle-arrow-tiny mt-4 table-hover" data-page-size="@users.TotalPageCount" data-striping="false">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Email</th>
+                                            <th>ФИО пользователя</th>
+                                            <th class="text-white"></th>
+                                            <th class="text-white"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var user in users)
+                                        {
+                                            <tr>
+                                                <td>@(i++)</td>
+                                                <td>@user.Email</td>
+                                                <td>@user.FullName</td>
+                                                <td class="text-right">
+                                                    <a asp-action="Edit" asp-route-Id="@user.Id" class="btn btn-white btn-circle" title="Редактирование профиля">
+                                                        <i class="i-Edit text-25 text-secondary mr-1"></i>
+                                                    </a>
+                                                </td>
+                                                <td class="text-right">
+                                                    <a asp-action="Delete" asp-route-Id="@user.Id" class="btn btn-white btn-circle" title="Удалить профиль">
+                                                        <i class="i-Remove text-25 text-secondary mr-1"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                                @Html.Pager(users, page => Url.Action("Index", new
+                            {
+                            page,
+                            Email = Model.Email,
+                            Name = Model.Name
+                            }),
+                            new PagerOptions
+                            {
+                            PagesToDisplay = 20,
+                            ClassToPagerContainer = "d-flex justify-content-center"
+                            })
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

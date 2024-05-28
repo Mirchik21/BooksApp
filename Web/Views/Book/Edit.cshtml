@@ -1,0 +1,73 @@
+﻿@model EditBookCommand
+
+@{
+    ViewData["Title"] = "Редактирование задачи";
+}
+
+<div class="main-content-wrap sidenav-open d-flex flex-column ">
+    <div class="main-content">
+        <div class="breadcrumb">
+            <ul>
+                <li><a asp-controller="Book" asp-action="Index">Список книг</a></li>
+                <li>@ViewData["Title"]</li>
+            </ul>
+        </div>
+        <div class="separator-breadcrumb border-top"></div>
+        <div class="col-md-10 mx-auto">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="card-title mb-3">Редактирование книги</div>
+                    <form asp-action="Edit" asp-controller="Book" asp-route-Id="@Model.Id" method="post" autocomplete="off">
+                        <input type="hidden" asp-for="@Model.Id" value="@Model.Id" />
+                        <div class="row">
+                            <div class="col-md-6 form-group mb-3">
+                                <label>Наименование книги</label>
+                                <input class="form-control" asp-for="@Model.Name">
+                                <span class="text-danger" asp-validation-for="@Model.Name"></span>
+                            </div>
+                            <div class="col-md-6 form-group mb-3">
+                                <label>Автор книги</label>
+                                <input class="form-control" asp-for="@Model.AuthorName">
+                                <span class="text-danger" asp-validation-for="@Model.AuthorName"></span>
+                            </div>
+                            <div class="col-md-6 d-flex my-3 align-items-center pr-0">
+                                <div class="col-md-4 pt-2 pl-0">
+                                    <label class="text-16">Дата выпуска книги</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <input class="form-control controlDate" type="date" asp-for="PublishYear" placeholder="Выберите дату" asp-format="{0:dd-MM-yyyy}" />
+                                    <span asp-validation-for="PublishYear" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group mb-3">
+                                <label>Жанр книги</label>
+                                <input class="form-control" asp-for="@Model.Genre">
+                                <span class="text-danger" asp-validation-for="@Model.Genre"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-12 mt-3">
+                            <button type="submit" class="btn btn-primary"><i class="i-Disk mr-1 "></i>Сохранить</button>
+                            <a class="btn btn-secondary" asp-action="Index" asp-controller="Project">Назад</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles{
+    <environment names="Development,Staging,Production">
+        <link href="~/css/site.css" rel="stylesheet" />
+        <link href="~/lib/select2/css/select2.min.css" rel="stylesheet" />
+        <link href="~/lib/select2/css/select2.min.css" rel="stylesheet" />
+        <link href="~/lib/select2-bootstrap-theme/select2-bootstrap.css" rel="stylesheet" />
+    </environment>
+}
+    @section Scripts{
+    <environment names="Development,Staging,Production">
+        <partial name="_ValidationScriptsPartial" />
+        <script src="~/lib/select2/js/select2.full.min.js" asp-append-version="true"></script>
+        <script src="~/lib/select2/js/i18n/ru.min.js" asp-append-version="true"></script>
+    </environment>
+}

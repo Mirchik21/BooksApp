@@ -1,0 +1,53 @@
+﻿@model EditAccountCommand
+
+@{
+    ViewData["Title"] = "Изменение сотрдуника";
+}
+
+<div class="main-content-wrap sidenav-open d-flex flex-column ">
+    <div class="main-content">
+        <div class="breadcrumb">
+            <ul>
+                <li><a asp-controller="Account" asp-action="Index">Сотрудники</a></li>
+                <li>@ViewData["Title"]</li>
+            </ul>
+        </div>
+        <div class="separator-breadcrumb border-top"></div>
+        <div class="col-md-12 mx-auto">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="card-title mb-3">Изменение сотрудника</div>
+                    <form asp-action="Edit" asp-controller="Account" method="post" autocomplete="off">
+                        <div class="row">
+                            <input  type="hidden" asp-for="@Model.Id" value="@Model.Id"/>
+                            <div class="col-md-3 form-group mb-3">
+                                <label>Фамилия</label>
+                                <input class="form-control" asp-for="@Model.LastName">
+                                <span class="text-danger" asp-validation-for="@Model.LastName"></span>
+                            </div>
+                            <div class="col-md-3 form-group mb-3">
+                                <label>Имя</label>
+                                <input class="form-control" asp-for="@Model.FirstName">
+                                <span class="text-danger" asp-validation-for="@Model.FirstName"></span>
+                            </div>
+                            <div class="col-md-3 form-group mb-3">
+                                <label>Отчество</label>
+                                <input class="form-control" asp-for="@Model.MiddleName">
+                                <span class="text-danger" asp-validation-for="@Model.MiddleName"></span>
+                            </div>
+                           <div class="col-md-3 form-group mb-3">
+                                <label>Email</label>
+                                <input class="form-control" asp-for="@Model.Email">
+                                <span class="text-danger" asp-validation-for="@Model.Email"></span>
+                            </div>
+                            <div class="col-md-12 mt-3">
+                                <button type="submit" class="btn btn-primary"><i class="i-Disk mr-1 "></i>Изменить</button>
+                                <a class="btn btn-secondary" asp-action="Index" asp-controller="Account">Назад</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

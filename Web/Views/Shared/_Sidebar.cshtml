@@ -1,0 +1,18 @@
+<div class="side-content-wrap">
+    <div class="sidebar-left open rtl-ps-none" data-perfect-scrollbar="" data-suppress-scroll-x="true">
+        <ul class="navigation-left">
+            <li class="nav-item @Html.IsSelected(controller: "Account")">
+                <a class="nav-item-hold" asp-controller="Account" asp-action="Index">
+                    <i class="nav-icon i-Shop"></i><span class="nav-text">Пользователи</span>
+                </a>
+                <div class="triangle"></div>
+            </li>
+            <li class="nav-item @Html.IsSelected(controller: "Book")">
+                <a class="nav-item-hold" asp-controller="Book" asp-action="Index">
+                    <i class="nav-icon i-Bar-Chart"></i><span class="nav-text">Книги</span>
+                </a>
+                <div class="triangle"></div>
+            </li> 
+        </ul>
+    </div>
+</div>
